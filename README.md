@@ -1,6 +1,6 @@
 ## Overview
 
-This is quick guide on how to install NVIDIA CUDA Toolkit on Ubuntu (tested on 22.04). What we'll install are:
+This is quick guide on how to install NVIDIA CUDA Toolkit on Ubuntu (tested on 22.04) and in conjuction with installing `PyTorch` package for developing AI/ML in your machine. What we'll install are:
 
 1. NVIDIA Driver
 2. NVIDIA CUDA Toolkit
@@ -100,12 +100,46 @@ You should see something like this:
 
 If you have seen these lines, things are going great!
 
-#### 4. Installing the rest...
+#### 4. Installing PyTorch 2.0
 
-Now it is time to install PyTorch and you can follow the steps from [here][5]
+Mainly I followed the instruction written in [here][6]:
+
+```console
+$ pip3 install numpy --pre torch torchvision torchaudio --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cu117
+
+```
+
+Which directly install PyTorch 2.0 and both its components and dependencies. Rest assured, this PyTorch package is meant for NVIDIA CUDA 11.7.
+
+#### 5. Testing PyTorch
+
+To test if CUDA Toolkit and its drivers are installed correctly, you can run this snippet:
+
+```python
+import torch
+
+# get number of GPUs available
+torch.cuda.device_count()
+
+# get the name of the GPU
+torch.cuda.get_device_name()
+
+```
+
+It will show something like this:
+
+
+```console
+1
+'NVIDIA GeForce RTX 3080'
+```
+
+Once you see your NVIDIA GPU in the console, you should good to go.
+
 
 [1]: https://nouveau.freedesktop.org/
 [2]: https://en.wikipedia.org/wiki/CUDA
 [3]: https://developer.nvidia.com/cuda-toolkit-archive
 [4]: https://pytorch.org/get-started/pytorch-2.0/#getting-started
 [5]: https://pytorch.org/get-started/pytorch-2.0/
+[6]: https://pytorch.org/get-started/pytorch-2.0/#faqs
